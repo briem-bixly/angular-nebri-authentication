@@ -52,20 +52,22 @@ config([...,
 <h2>Usage Example</h2>
 ```
 .controller('myController', function(..., nebriAngularTokenAuth, nebriAngularBasicAuth, nebriAngularOAuth){
-    nebriAngularTokenAuth.api_request('nebrios_authentication', 'test_token', 'post')
-        .success(function(data){
+    var token_request = nebriAngularTokenAuth.api_request('nebrios_authentication', 'test_token', 'post');
+    token_request.then(
+        function(data){
             console.log(data);
-        }).error(function(err){
+        }, function(err){
             console.log(err);
         });
-    nebriAngularBasicAuth.api_request('nebrios_authentication', 'test_basic', 'post')
-        .success(function(data){
+    var basic_request = nebriAngularBasicAuth.api_request('nebrios_authentication', 'test_basic', 'post');
+    basic_request.then(
+        function(data){
             console.log(data);
-        }).error(function(err){
+        }, function(err){
             console.log(err);
         });
-    var request = nebriAngularOAuth.api_request('nebrios_authentication', 'another_test', 'post');
-    request.then(
+    var oauth_request = nebriAngularOAuth.api_request('nebrios_authentication', 'another_test', 'post');
+    oauth_request.then(
         function(data){
             console.log(data);
         }, function(err){
@@ -73,4 +75,4 @@ config([...,
         });
 });
 ```
-- nebriAngularOAuth utilizes promises instead of just $http in order to ensure no api calls are made before an access token has been properly set up. Any calls that are created before an access token has be generated and saved are queued and sent once the access token has been returned properly.
+- For all classes, promises are utilized to ensure all credentials are available before any calls are made. For nebriAngularOAuth, any calls that are created before an access token has be generated and saved are queued and sent once the access token has been returned properly.
