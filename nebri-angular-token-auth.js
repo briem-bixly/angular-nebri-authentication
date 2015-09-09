@@ -12,16 +12,23 @@
                 throw new Error('Please provide your token via setToken');
             }
         };
-        this.$get = ['nebriosAngular', function(nebriosAngular) {
+        this.$get = ['nebriosAngular', '$q', function(nebriosAngular, $q) {
             me.createNebriTokenAuthInstance();
             return {
                 api_request: function(api_module, view_name, method, payload){
+                    var deferred = $q.defer();
                     if (payload == undefined || payload == null){
                         payload = {'token': token};
                     } else {
                         payload['token'] = token;
                     }
-                    return nebriosAngular.api_request(api_module, view_name, method, payload);
+                    nebriosAngular.api_request(api_module, view_name, method, payload)
+                        .success(function(data){
+                            deferred.resolve(data);
+                        }).error(function(msg, code){
+                            deferred.reject(msg);
+                        });
+                    return deferred.promise;
             	}
             };
         }];

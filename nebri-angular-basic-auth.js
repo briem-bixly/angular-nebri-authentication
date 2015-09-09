@@ -15,11 +15,18 @@
             }
             $http.defaults.headers.common.Authorization = 'Basic '+btoa(username+':'+password);
         };
-        this.$get = ['nebriosAngular', '$http', function(nebriosAngular, $http) {
+        this.$get = ['nebriosAngular', '$http', '$q', function(nebriosAngular, $http, $q) {
             me.createNebriBasicAuthInstance($http);
             return {
                 api_request: function(api_module, view_name, method, payload){
-                    return nebriosAngular.api_request(api_module, view_name, method, payload);
+                    var deferred = $q.defer();
+                    nebriosAngular.api_request(api_module, view_name, method, payload)
+                        .success(function(data){
+                            deferred.resolve(data);
+                        }).error(function(msg, code){
+                            deferred.reject(msg);
+                        });
+                    return deferred.promise;
             	}
             };
         }];
