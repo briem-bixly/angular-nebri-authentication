@@ -13,9 +13,9 @@ Copy any/all of the js files to the appropriate location in your application. Th
 ```
 
 <h2>Requirements</h2>
-This app requires the use of https://github.com/briem-bixly/angular-nebri.
+This app requires the use of https://github.com/nebrie/angular-nebri.
 
-<strong>NOTE</strong>: Before using any classes and associated functions in this package, you must include nebrios-authentication in your Nebri Instance and set up any authentication methods you would like to utilize. See https://github.com/briem-bixly/nebrios-authentication/blob/master/README.md for more information.
+<strong>NOTE</strong>: Before using any classes and associated functions in this package, you must include nebrios-authentication in your Nebri Instance and set up any authentication methods you would like to utilize. See https://github.com/nebrie/nebrios-authentication/blob/master/README.md for more information.
 
 <h2>Setup</h2>
 Depending on what authentication schema you would like to use, apps should be added to your dependencies.
